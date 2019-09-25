@@ -95,9 +95,10 @@ public class Calculadora {
             if (Character.isLetterOrDigit(c) || c=='.')
                 res += c;
             else{
-                if(res.charAt(res.length() - 1) != ' '){
-                    res+=" ";  
-                }
+                if(res.length()>=1)
+                    if(res.charAt(res.length() - 1) != ' '){
+                        res+=" ";  
+                    }
                 if (c == '(')
                     pila.push(c);
                 else{
