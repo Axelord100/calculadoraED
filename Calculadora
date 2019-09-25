@@ -179,34 +179,27 @@ public class Calculadora {
         return resp;
     }
     
-    public boolean revisaParentesis(String cadena){
-        int tot = cadena.length() - 1;
-        PilaA <Character> pila = new PilaA();
-        boolean resp = true;
-        int i = 0;
-     
-        while(i < tot && resp){
-            if(cadena.charAt(i) == '('){
-                if(cadena.charAt(i + 1) == (')')){
-                    resp = false;
-                }
-                
+    public static boolean analizaParentesis(String cadena) {
+        PilaA<Character> pila = new PilaA();
+        boolean resp=false;
+        
+        for(int i=0; i<cadena.length(); i++) {
+            if(cadena.charAt(i)=='(') {
                 pila.push(cadena.charAt(i));
             }
-               
-            else
-                 if(cadena.charAt(i) == (')')){
-                     try{
-                         pila.pop();
-                     }
-                     catch(ExceptionVacia e){
-                         resp = false;
-                     }
-                     
-                 }
-            i++;      
+            else if(cadena.charAt(i)==')') {
+                if(pila.isEmpty()) {
+                    return false;
+                }
+                else {
+                    pila.pop();
+                }
+            }
+            if(pila.isEmpty()) {
+                resp=true;
+            }
         }
-        return resp && pila.isEmpty();
-    }
+        return resp;
+    } 
             
 }
