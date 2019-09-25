@@ -1,0 +1,41 @@
+public static PilaA stringAPila(String cadena){
+        String[] aux;
+        boolean ayuda;
+        ayuda = true;
+        PilaA pila;
+        int i;
+        i=0;
+        while(i<cadena.length() && ayuda){
+            if(cadena.charAt(i)=='+'|| cadena.charAt(i)== '-' || cadena.charAt(i)=='*'|| cadena.charAt(i)== '/')
+                ayuda = false;
+            i++;
+        }
+        pila = new PilaA();
+        if(ayuda){
+            pila.push(Double.parseDouble(cadena));
+            System.out.println(pila.peek());
+        }
+            
+        else{
+            aux = cadena.split(" ");
+            for(i = aux.length - 1;i >= 0;i--){
+                switch(aux[i]){
+                    case "-":
+                        pila.push('-');
+                        break;
+                    case "+":
+                        pila.push('+');
+                        break;
+                    case "*":
+                        pila.push('*');
+                        break;
+                    case "/":
+                        pila.push('/');
+                        break;
+                    default :
+                        pila.push(Double.parseDouble(aux[i]));
+                }
+            }
+        }
+        return pila;
+    }
