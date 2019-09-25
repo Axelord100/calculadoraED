@@ -457,7 +457,7 @@ public class JCalc extends javax.swing.JFrame {
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {                                          
         String cadena = txtpanel.getText();
         double resp;
-        
+        cadena = cadena +"+0";
         if(checaOper(cadena)) {
             PilaA pila = new PilaA();
             cadena = fijoAPosfijo(cadena);
