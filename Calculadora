@@ -153,7 +153,7 @@ public class Calculadora {
         double resp, aux1, aux2;
         char oper;
         PilaA pila = new PilaA();
-        resp = 0;
+        resp = (double)expresion.peek();
         while(!expresion.isEmpty()){
             if(expresion.peek() instanceof Double)
                 pila.push(expresion.pop());
