@@ -1,0 +1,76 @@
+package poo;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
+import java.util.Scanner;
+
+public class ArchivosRecursion {
+    
+    public static boolean creaArchivo(String nom) {
+        boolean resp;
+        
+        try(FileOutputStream file = new FileOutputStream(nom); ObjectOutputStream sal = new ObjectOutputStream(file);) {
+            sal.writeObject(new Rectangulo1(10.5, 10.5));
+            sal.writeObject(new Rectangulo1(6.9, 7.3));
+            sal.writeObject(new Cuadrado1(4.6));
+            sal.writeObject(new Circulo(6.7));
+            sal.writeObject(new Cuadrado1(16.2));
+            
+            resp = true;
+        } catch (Exception e) {
+            resp = false;
+        }
+        
+        return resp;
+    }
+    
+    public static int cuentaFig(String nom, String fig) {
+        int count;
+        
+        try {
+           FileInputStream file = new FileInputStream(nom);
+           ObjectInputStream lee = new ObjectInputStream(file);
+           count = cuentaFig(0, lee, fig);
+           lee.close();
+        } catch (IOException e) {
+            count = -1;
+        }
+        
+        return count;
+    }
+    
+    private static int cuentaFig(int count, ObjectInputStream lee, String fig) {
+        try {
+            Object obj = lee.readObject();
+            
+            if(obj.getClass().getSimpleName().equals(fig))
+                count++;
+            
+            return cuentaFig(count, lee, fig);
+        } catch(IOException | ClassNotFoundException e) {
+            return count;
+        } 
+    }
+    
+    public static void main(String[] args) {
+        Scanner lee = new Scanner(System.in);
+        String nom;
+        System.out.println("Nombre: ");
+        nom = lee.nextLine();
+        
+        if(creaArchivo(nom)) {
+            String fig;
+            int count;
+                        
+            System.out.println("¿Que figura?");
+            fig = lee.nextLine();
+            count = cuentaFig(nom, fig);
+            System.out.println("Total de " + fig + " Guardados" + count);
+        }
+        else
+            System.out.println("No se pudo");
+    }
+}
